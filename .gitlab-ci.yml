@@ -1,0 +1,34 @@
+#https://gitlab.superdao.co/dev/platform/gitlab-templates/-/blob/main/gitlab-ci/includes/deploy.gitlab-ci.yml
+
+include:
+  - project: 'dev/platform/gitlab-templates'
+    ref: main
+    file: '/gitlab-ci/includes/deploy.gitlab-ci.yml'
+
+variables:
+  DEPLOY_PRODUCTION_DOMAIN: https://similar-wallets.superdao.dev
+
+
+stages:
+  - build
+  - deploy
+
+build:
+  extends: .base_build
+  before_script:
+  - gsutil ls -L -b gs://superdao-etl-data/ml/ > ./app/metadata
+  artifacts:
+    paths:
+      - ./app/metadata
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+Deploy to prod:
+  extends: .base_deploy
+  needs:
+    - build
+  environment:
+    name: prod
+    url: $DEPLOY_PRODUCTION_DOMAIN
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

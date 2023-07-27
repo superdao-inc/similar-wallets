@@ -1,0 +1,12 @@
+giterminismConfigVersion: 1
+helm:
+  allowUncommittedFiles:
+     - .helm/charts
+     - .helm/Chart.lock
+config:
+  goTemplateRendering:
+    allowEnvVariables:
+      - "GCP_SERVICE_KEY"
+  dockerfile:
+    allowContextAddFiles: 
+    - ./app/metadata

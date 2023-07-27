@@ -1,0 +1,9 @@
+configVersion: 1
+project: similar-wallets
+---
+image: backend
+dockerfile: ./Dockerfile
+args:
+  GCP_SERVICE_KEY: {{ env "GCP_SERVICE_KEY" }}
+contextAddFiles:
+  - ./app/metadata

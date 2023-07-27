@@ -1,0 +1,16 @@
+/app/similar_wallets.ann
+/app/index.ann
+/app/map.csv
+/app/map.parquet
+/app/metadata
+
+/developer_eggs
+
+**/*_pycache_*
+
+.vscode
+.idea
+.DS_Store
+
+.helm/charts
+.helm/Chart.lock

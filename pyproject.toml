@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "similar_wallet"
+version = "0.1.0"
+description = "FastAPI with Annoy Index for Similar Wallets"
+authors = ["Lopson lopson@superdao.co"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "0.93.0"
+uvicorn = "0.20.0"
+annoy = "^1.17.2"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.5.post1"}
+pandas = "2.0.1"
+pyarrow = "12.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

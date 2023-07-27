@@ -1,0 +1,46 @@
+backend: 
+  name: backend
+  image:
+    tag: '{{ .Values.werf.tag.backend }}'
+  service:
+    name: app
+    port: 80
+    targetPort: app
+  ingress:
+    enabled: true
+  replicaCount: 1
+  command: ["poetry"]
+  args: ["run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+  updateStrategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 100%
+      maxUnavailable: 0
+  startupProbe:
+    enabled: true
+    failureThreshold: 100
+    httpGet:
+        path: /
+        port: app
+  livenessProbe:
+    enabled: true
+    httpGet:
+        path: /
+        port: app
+  readinessProbe:
+    enabled: true
+    httpGet:
+      path: /
+      port: app
+  containerPorts:
+    - name: app
+      containerPort: 8000
+  monitoring:
+    enabled: false
+    endpoints:
+      - port: app
+        path: /metrics
+  resources:
+    requests:
+      memory: "8Gi"
+      cpu: "1300m"
